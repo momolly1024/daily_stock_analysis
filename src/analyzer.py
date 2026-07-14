@@ -1897,11 +1897,11 @@ class GeminiAnalyzer:
 """
         return base_prompt + """
 
-## 输出语言（最高优先级）
+## 輸出語言（最高優先級）
 
-- 所有 JSON 键名保持不变。
-- `decision_type` 必须保持为 `buy|hold|sell`。
-- 所有面向用户的人类可读文本值必须使用中文。
+- 所有 JSON 鍵名保持不變。
+- `decision_type` 必須保持為 `buy|hold|sell`。
+- 所有面向使用者的人類可讀文本值必須使用**繁體中文（台灣正體）**，嚴禁使用簡體中文。
 """
 
     def _has_channel_config(self, config: Config) -> bool:
