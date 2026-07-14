@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 ===================================
 大盘复盘分析模块
@@ -855,11 +855,11 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
                 label = "defensive"
         else:
             if score >= 70:
-                label = "强势"
+                label = "強勢"
             elif score >= 55:
                 label = "偏暖"
             elif score >= 40:
-                label = "震荡"
+                label = "震盪"
             else:
                 label = "偏弱"
         return score, label
@@ -912,22 +912,22 @@ Lagging: {bottom_sectors_text if bottom_sectors_text else "N/A"}"""
                 sector_block = "## Sector Performance\n(Sector data not available for this market.)"
         else:
             if self.profile.has_market_stats:
-                stats_block = f"""## 市场概况
-- 上涨: {overview.up_count} 家 | 下跌: {overview.down_count} 家 | 平盘: {overview.flat_count} 家
-- 涨停: {overview.limit_up_count} 家 | 跌停: {overview.limit_down_count} 家
-- 两市成交额: {overview.total_amount:.0f} 亿元"""
+                stats_block = f"""## 市場概況
+- 上漲: {overview.up_count} 家 | 下跌: {overview.down_count} 家 | 平盤: {overview.flat_count} 家
+- 漲停: {overview.limit_up_count} 家 | 跌停: {overview.limit_down_count} 家
+- 兩市成交額: {overview.total_amount:.0f} 億元"""
             else:
-                stats_block = "## 市场概况\n（该市场暂无涨跌家数等统计）"
+                stats_block = "## 市場概況\n（該市場暫無漲跌家數等統計）"
 
             if self.profile.has_sector_rankings:
-                sector_block = f"""## 板块表现
-领涨: {top_sectors_text if top_sectors_text else "暂无数据"}
-领跌: {bottom_sectors_text if bottom_sectors_text else "暂无数据"}"""
+                sector_block = f"""## 板塊表現
+領漲: {top_sectors_text if top_sectors_text else "暫無數據"}
+領跌: {bottom_sectors_text if bottom_sectors_text else "暫無數據"}"""
             else:
-                sector_block = "## 板块表现\n（该市场暂无板块涨跌数据）"
+                sector_block = "## 板塊表現\n（該市場暫無板塊漲跌數據）"
 
         data_no_indices_hint = (
-            "注意：由于行情数据获取失败，请主要根据【市场新闻】进行定性分析和总结，不要编造具体的指数点位。"
+            "注意：由於行情數據獲取失敗，請主要根據【市場新聞】進行定性分析和總結，不要編造具體的指數點位。"
             if not indices_text
             else ""
         )
@@ -940,8 +940,8 @@ Lagging: {bottom_sectors_text if bottom_sectors_text else "N/A"}"""
             indices_placeholder = indices_text if indices_text else "No index data (API error)"
             news_placeholder = news_text if news_text else "No relevant news"
         else:
-            indices_placeholder = indices_text if indices_text else "暂无指数数据（接口异常）"
-            news_placeholder = news_text if news_text else "暂无相关新闻"
+            indices_placeholder = indices_text if indices_text else "暫無指數數據（接口異常）"
+            news_placeholder = news_text if news_text else "暫無相關新聞"
 
         if review_language == "en":
             report_title = self._get_review_title(overview.date).removeprefix("## ").strip()
@@ -1000,39 +1000,40 @@ Lagging: {bottom_sectors_text if bottom_sectors_text else "N/A"}"""
 (List the main risks to monitor.)
 
 ### 7. Strategy Plan
-(Provide an offensive/balanced/defensive stance, a position-sizing guideline, one invalidation trigger, and end with “For reference only, not investment advice.”)
+(Provide an offensive/balanced/defensive stance, a position-sizing guideline, one invalidation trigger, and end with "For reference only, not investment advice.")
 
 ---
 
 Output the report content directly, no extra commentary.
 """
 
-        # A 股场景使用中文提示语
-        return f"""你是一位专业的A/H/美股市场分析师，请根据以下数据生成一份结构化的{self._get_market_scope_name('zh')}大盘复盘报告。
+        # A 股場景使用繁體中文提示語
+        return f"""你是一位專業的A/H/美股市場分析師，請根據以下數據生成一份結構化的{self._get_market_scope_name('zh')}大盤復盤報告。
 
-【重要】输出要求：
-- 必须输出纯 Markdown 文本格式
-- 禁止输出 JSON 格式
-- 禁止输出代码块
-- emoji 仅在标题处少量使用（每个标题最多1个）
-- 报告要像交易员盘后工作台：先给结论，再按数据表、主线、催化、计划展开
-- 不要重复列出已由系统注入的表格数据；正文负责解释表格背后的含义
+【重要】輸出要求：
+- 必須使用**繁體中文（台灣正體）**輸出，嚴禁使用簡體中文
+- 必須輸出純 Markdown 文本格式
+- 禁止輸出 JSON 格式
+- 禁止輸出代碼塊
+- emoji 僅在標題處少量使用（每個標題最多1個）
+- 報告要像交易員盤後工作台：先給結論，再按數據表、主線、催化、計劃展開
+- 不要重複列出已由系統注入的表格數據；正文負責解釋表格背後的含義
 
 ---
 
-# 今日市场数据
+# 今日市場數據
 
 ## 日期
 {overview.date}
 
-## 主要指数
+## 主要指數
 {indices_placeholder}
 
 {stats_block}
 
 {sector_block}
 
-## 市场新闻
+## 市場新聞
 {news_placeholder}
 
 {data_no_indices_hint}
@@ -1041,36 +1042,36 @@ Output the report content directly, no extra commentary.
 
 ---
 
-# 输出格式模板（请严格按此格式输出）
+# 輸出格式模板（請嚴格按此格式輸出）
 
-## {overview.date} 大盘复盘
+## {overview.date} 大盤復盤
 
-> 一句话给出今日市场状态、核心矛盾和明日优先观察方向。
+> 一句話給出今日市場狀態、核心矛盾和明日優先觀察方向。
 
-### 一、盘面总览
-（2-3句话概括指数、涨跌家数、成交额和情绪温度，明确“强势/偏暖/震荡/偏弱”判断）
+### 一、盤面總覽
+（2-3句話概括指數、漲跌家數、成交額和情緒溫度，明確「強勢/偏暖/震盪/偏弱」判斷）
 
-### 二、指数结构
-（{self._get_index_hint()}，说明谁在护盘、谁在拖累，以及关键支撑/压力）
+### 二、指數結構
+（{self._get_index_hint()}，說明誰在護盤、誰在拖累，以及關鍵支撐/壓力）
 
-### 三、板块主线
-（分析领涨/领跌板块背后的逻辑、持续性和是否形成主线）
+### 三、板塊主線
+（分析領漲/領跌板塊背後的邏輯、持續性和是否形成主線）
 
-### 四、资金与情绪
-（解读成交额、涨跌停结构、市场宽度和风险偏好）
+### 四、資金與情緒
+（解讀成交額、漲跌停結構、市場寬度和風險偏好）
 
 ### 五、消息催化
-（结合近三日新闻，提炼真正影响明日交易的催化或扰动）
+（結合近三日新聞，提煉真正影響明日交易的催化或擾動）
 
-### 六、明日交易计划
-（给出进攻/均衡/防守结论、仓位区间、关注方向、回避方向和一个触发失效条件）
+### 六、明日交易計劃
+（給出進攻/均衡/防守結論、倉位區間、關注方向、回避方向和一個觸發失效條件）
 
-### 七、风险提示
-（列出需要关注的风险点；最后补充“建议仅供参考，不构成投资建议”。）
+### 七、風險提示
+（列出需要關注的風險點；最後補充「建議僅供參考，不構成投資建議」。）
 
 ---
 
-请直接输出复盘报告内容，不要输出其他说明文字。
+請直接輸出復盤報告內容，不要輸出其他說明文字。
 """
     
     def _generate_template_review(self, overview: MarketOverview, news: List) -> str:
@@ -1157,36 +1158,36 @@ Market conditions can change quickly. The data above is for reference only and d
         dashboard_block = self._build_stats_block(overview)
         indices_block = self._build_indices_block(overview)
         sector_block = self._build_sector_block(overview)
-        return f"""## {overview.date} 大盘复盘
+        return f"""## {overview.date} 大盤復盤
 
-> 今日{market_label}市场整体呈现**{market_mood}**态势，优先观察指数承接、成交额变化和板块持续性。
+> 今日{market_label}市場整體呈現**{market_mood}**態勢，優先觀察指數承接、成交額變化和板塊持續性。
 
-### 一、盘面总览
-{dashboard_block or "暂无市场宽度数据。"}
+### 一、盤面總覽
+{dashboard_block or "暫無市場寬度數據。"}
 
-### 二、指数结构
-{indices_block or indices_text or "暂无指数数据。"}
+### 二、指數結構
+{indices_block or indices_text or "暫無指數數據。"}
 
-### 三、板块主线
-{sector_block or "- 暂无板块涨跌榜数据。"}
+### 三、板塊主線
+{sector_block or "- 暫無板塊漲跌榜數據。"}
 
-### 四、资金与情绪
-- 结合成交额和涨跌家数看，当前更适合等待确认，避免仅凭单一热点追高。
+### 四、資金與情緒
+- 結合成交額和漲跌家數看，當前更適合等待確認，避免僅憑單一熱點追高。
 
 ### 五、消息催化
-- 暂无可用新闻时，应降低对题材持续性的确定性判断。
+- 暫無可用新聞時，應降低對題材持續性的確定性判斷。
 
-### 六、明日交易计划
-- **结论**：均衡观察。
-- **仓位**：控制在中性区间，等待指数与主线共振。
-- **关注方向**：{top_text or "强于指数的主线板块"}。
-- **回避方向**：{bottom_text or "连续走弱且缺少修复信号的方向"}。
+### 六、明日交易計劃
+- **結論**：均衡觀察。
+- **倉位**：控制在中性區間，等待指數與主線共振。
+- **關注方向**：{top_text or "強於指數的主線板塊"}。
+- **回避方向**：{bottom_text or "連續走弱且缺少修復信號的方向"}。
 
-### 七、风险提示
-- 市场有风险，投资需谨慎。以上数据仅供参考，不构成投资建议。
+### 七、風險提示
+- 市場有風險，投資需謹慎。以上數據僅供參考，不構成投資建議。
 
 ---
-*复盘时间: {datetime.now().strftime('%H:%M')}*
+*復盤時間: {datetime.now().strftime('%H:%M')}*
 """
     
     def run_daily_review(self) -> str:
