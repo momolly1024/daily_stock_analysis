@@ -163,7 +163,7 @@ class EmailSender:
             # 生成主题
             if subject is None:
                 date_str = datetime.now().strftime('%Y-%m-%d')
-                subject = f"📈 股票智能分析报告 - {date_str}"
+                subject = f"📈 股票智能分析報告 - {date_str}"
             
             # 将 Markdown 转换为简单 HTML
             html_content = markdown_to_html_document(content)
@@ -235,17 +235,17 @@ class EmailSender:
         server: Optional[smtplib.SMTP] = None
         try:
             date_str = datetime.now().strftime('%Y-%m-%d')
-            subject = f"📈 股票智能分析报告 - {date_str}"
+            subject = f"📈 股票智能分析報告 - {date_str}"
             msg = MIMEMultipart('related')
             msg['Subject'] = Header(subject, 'utf-8')
             msg['From'] = self._format_sender_address(sender)
             msg['To'] = ', '.join(receivers)
 
             alt = MIMEMultipart('alternative')
-            alt.attach(MIMEText('报告已生成，详见下方图片。', 'plain', 'utf-8'))
+            alt.attach(MIMEText('報告已生成，詳見下方圖片。', 'plain', 'utf-8'))
             html_body = (
-                '<p>报告已生成，详见下方图片（点击可查看大图）：</p>'
-                '<p><img src="cid:report-image" alt="股票分析报告" style="max-width:100%%;" /></p>'
+                '<p>報告已生成，詳見下方圖片（點擊可查看大圖）：</p>'
+                '<p><img src="cid:report-image" alt="股票分析報告" style="max-width:100%%;" /></p>'
             )
             alt.attach(MIMEText(html_body, 'html', 'utf-8'))
             msg.attach(alt)
