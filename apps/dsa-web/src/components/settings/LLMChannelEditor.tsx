@@ -388,7 +388,7 @@ const ChannelRow: React.FC<ChannelRowProps> = ({
               ) : null}
               {providerSources.length > 0 ? (
                 <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] leading-5 text-secondary-text">
-                  <span>官方来源：</span>
+                  <span>官方來源：</span>
                   {providerSources.map((source) => (
                     <a
                       key={source.url}

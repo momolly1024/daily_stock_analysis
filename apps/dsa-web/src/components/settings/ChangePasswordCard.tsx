@@ -59,7 +59,7 @@ export const ChangePasswordCard: React.FC = () => {
   return (
     <SettingsSectionCard
       title="修改密码"
-      description="更新当前管理员登录密码。修改成功后，后续登录请使用新密码。"
+      description="更新当前管理员登录密码。修改成功後，後續登入請使用新密碼。"
     >
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="grid gap-4 md:grid-cols-2">

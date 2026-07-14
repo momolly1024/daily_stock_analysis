@@ -141,7 +141,7 @@ export const IntelligentImport: React.FC<IntelligentImportProps> = ({
         const parsed = getParsedApiError(e);
         const err = e && typeof e === 'object' ? (e as { response?: { status?: number }; code?: string }) : null;
         let fallback = '识别失败，请重试';
-        if (err?.response?.status === 429) fallback = '请求过于频繁，请稍后再试';
+        if (err?.response?.status === 429) fallback = '請求過於頻繁，請稍後再試';
         else if (err?.code === 'ECONNABORTED') fallback = '请求超时，请检查网络后重试';
         setError(parsed.message || fallback);
       } finally {
@@ -255,7 +255,7 @@ export const IntelligentImport: React.FC<IntelligentImportProps> = ({
     const toMerge = items.filter((i) => i.checked && i.code).map((i) => i.code!);
     if (toMerge.length === 0) return;
     if (!configVersion) {
-      setError('请先加载配置后再合并');
+      setError('請先載入配置後再合併');
       return;
     }
     const current = parseCurrentList();

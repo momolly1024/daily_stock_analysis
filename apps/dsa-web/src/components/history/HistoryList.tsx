@@ -151,7 +151,7 @@ export const HistoryList: React.FC<HistoryListProps> = ({
           />
         ) : items.length === 0 ? (
           <DashboardStateBlock
-            title="暂无历史分析记录"
+            title="暫無歷史分析記錄"
             description="完成首次分析后，这里会保留最近结果。"
             icon={(
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

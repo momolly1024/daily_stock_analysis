@@ -6,7 +6,7 @@ import { validateStockCode } from '../../utils/validation';
 
 const ALERT_TYPE_OPTIONS = [
   { value: 'price_cross', label: '价格突破' },
-  { value: 'price_change_percent', label: '涨跌幅' },
+  { value: 'price_change_percent', label: '漲跌幅' },
   { value: 'volume_spike', label: '成交量放大' },
 ];
 
@@ -22,7 +22,7 @@ const PRICE_DIRECTION_OPTIONS = [
 ];
 
 const CHANGE_DIRECTION_OPTIONS = [
-  { value: 'up', label: '上涨达到' },
+  { value: 'up', label: '上漲達到' },
   { value: 'down', label: '下跌达到' },
 ];
 
@@ -119,7 +119,7 @@ export const AlertRuleForm: React.FC<AlertRuleFormProps> = ({ onSubmit, isSubmit
             disabled={isSubmitting}
           />
           <Input
-            label="标的代码"
+            label="標的代碼"
             value={target}
             onChange={(event) => setTarget(event.target.value)}
             placeholder="600519 / AAPL / hk00700"
@@ -176,7 +176,7 @@ export const AlertRuleForm: React.FC<AlertRuleFormProps> = ({ onSubmit, isSubmit
               onChange={(value) => setChangeDirection(value as 'up' | 'down')}
             />
             <Input
-              label="涨跌幅阈值（%）"
+              label="漲跌幅閾值（%）"
               type="number"
               min="0"
               step="0.01"
@@ -201,7 +201,7 @@ export const AlertRuleForm: React.FC<AlertRuleFormProps> = ({ onSubmit, isSubmit
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Checkbox
-            label="创建后立即启用"
+            label="創建後立即啟用"
             checked={enabled}
             onChange={(event) => setEnabled(event.target.checked)}
             disabled={isSubmitting}

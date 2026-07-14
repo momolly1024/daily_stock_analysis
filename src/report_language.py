@@ -673,11 +673,11 @@ def get_sentiment_label(score: int, language: Optional[str]) -> str:
         return "Very Bearish"
 
     if score >= 80:
-        return "极度乐观"
+        return "極度樂觀"
     if score >= 60:
-        return "乐观"
+        return "樂觀"
     if score >= 40:
         return "中性"
     if score >= 20:
-        return "悲观"
-    return "极度悲观"
+        return "悲觀"
+    return "極度悲觀"

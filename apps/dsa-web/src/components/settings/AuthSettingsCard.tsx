@@ -9,10 +9,10 @@ import { SettingsSectionCard } from './SettingsSectionCard';
 
 function createNextModeLabel(authEnabled: boolean, desiredEnabled: boolean) {
   if (authEnabled && !desiredEnabled) {
-    return '关闭认证';
+    return '關閉認證';
   }
   if (!authEnabled && desiredEnabled) {
-    return '开启认证';
+    return '開啟認證';
   }
   return authEnabled ? '保持已开启' : '保持已关闭';
 }
@@ -67,7 +67,7 @@ export const AuthSettingsCard: React.FC = () => {
         return;
       }
       if (password !== passwordConfirm) {
-        setError('两次输入的新密码不一致');
+        setError('兩次輸入的新密碼不一致');
         return;
       }
     }

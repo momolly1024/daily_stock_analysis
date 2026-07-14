@@ -120,7 +120,7 @@ export const AlertRuleList: React.FC<AlertRuleListProps> = ({
         <div className="flex min-h-[220px] flex-1 items-center justify-center">
           <EmptyState
             icon={<Bell className="h-6 w-6" />}
-            title={isLoading ? '正在加载规则' : '暂无告警规则'}
+            title={isLoading ? '正在加载规则' : '暫無告警規則'}
             description="创建规则后，后台评估任务会按轮询周期处理已启用的告警。"
           />
         </div>
@@ -135,7 +135,7 @@ export const AlertRuleList: React.FC<AlertRuleListProps> = ({
                 <th className="px-3 py-2 font-medium">参数</th>
                 <th className="px-3 py-2 font-medium">状态</th>
                 <th className="px-3 py-2 font-medium">冷却</th>
-                <th className="px-3 py-2 font-medium">更新时间</th>
+                <th className="px-3 py-2 font-medium">更新時間</th>
                 <th className="px-3 py-2 text-right font-medium">操作</th>
               </tr>
             </thead>
@@ -144,7 +144,7 @@ export const AlertRuleList: React.FC<AlertRuleListProps> = ({
                 <tr key={rule.id} className="align-top">
                   <td className="px-3 py-3">
                     <div className="font-medium text-foreground">{rule.name}</div>
-                    <div className="mt-1 text-xs text-muted-text">来源：{rule.source}</div>
+                    <div className="mt-1 text-xs text-muted-text">來源：{rule.source}</div>
                   </td>
                   <td className="px-3 py-3 font-mono text-secondary-text">{rule.target}</td>
                   <td className="px-3 py-3">
@@ -217,7 +217,7 @@ export const AlertRuleList: React.FC<AlertRuleListProps> = ({
       <ConfirmDialog
         isOpen={pendingDelete != null}
         title="删除告警规则"
-        message={pendingDelete ? `确认删除「${pendingDelete.name}」吗？该操作不会删除已有触发历史。` : ''}
+        message={pendingDelete ? `確認刪除「${pendingDelete.name}」嗎？該操作不會刪除已有觸發歷史。` : ''}
         confirmText="删除"
         cancelText="取消"
         isDanger

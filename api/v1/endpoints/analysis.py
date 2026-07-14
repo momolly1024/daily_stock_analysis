@@ -285,7 +285,7 @@ def trigger_analysis(
             status_code=400,
             detail={
                 "error": "validation_error",
-                "message": "股票代码不能为空或仅包含空白字符"
+                "message": "股票代碼不能為空或僅包含空白字符"
             }
         )
 
@@ -296,7 +296,7 @@ def trigger_analysis(
                 status_code=400,
                 detail={
                     "error": "validation_error",
-                    "message": "同步模式仅支持单只股票分析，请使用 async_mode=true 进行批量分析"
+                    "message": "同步模式僅支援單只股票分析，請使用 async_mode=true 進行批量分析"
                 }
             )
         return _handle_sync_analysis(stock_codes[0], request)
@@ -494,7 +494,7 @@ def trigger_market_review(
     if override_region == "":
         return MarketReviewAccepted(
             status="accepted",
-            message="今日大盘复盘相关市场均为非交易日，已跳过大盘复盘",
+            message="今日大盤復盤相關市場均為非交易日，已跳過大盤復盤",
             send_notification=request.send_notification,
         )
 
@@ -504,7 +504,7 @@ def trigger_market_review(
             status_code=409,
             detail={
                 "error": "duplicate_market_review",
-                "message": "大盘复盘正在执行中，请稍后再试",
+                "message": "大盤復盤正在執行中，請稍後再試",
             },
         )
 
@@ -519,8 +519,8 @@ def trigger_market_review(
                 query_id=task_id,
             ),
             stock_code="market_review",
-            stock_name="大盘复盘",
-            message="大盘复盘任务已提交",
+            stock_name="大盤復盤",
+            message="大盤復盤任務已提交",
             task_id=task_id,
         )
     except Exception:
@@ -529,7 +529,7 @@ def trigger_market_review(
 
     return MarketReviewAccepted(
         status="accepted",
-        message="大盘复盘任务已提交，完成后会保存报告并按配置推送通知",
+        message="大盤復盤任務已提交，完成後會保存報告並按設定推送通知",
         send_notification=request.send_notification,
         task_id=task.task_id,
     )

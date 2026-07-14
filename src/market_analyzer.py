@@ -35,11 +35,11 @@ _ENGLISH_SECTION_PATTERNS = {
 }
 
 _CHINESE_SECTION_PATTERNS = {
-    "market_summary": r"###\s*一、(?:盘面总览|市场总结)",
-    "index_commentary": r"###\s*二、(?:指数结构|指数点评|主要指数)",
-    "sector_highlights": r"###\s*三、(?:板块主线|热点解读|板块表现)",
-    "funds_sentiment": r"###\s*四、(?:资金与情绪|资金动向)",
-    "news_catalysts": r"###\s*五、(?:消息催化|后市展望)",
+    "market_summary": r"###\s*一、(?:盤面總覽|盘面总览|市場總結|市场总结)",
+    "index_commentary": r"###\s*二、(?:指數結構|指数结构|指數點評|指数点评|主要指數|主要指数)",
+    "sector_highlights": r"###\s*三、(?:板塊主線|板块主线|熱點解讀|热点解读|板塊表現|板块表现)",
+    "funds_sentiment": r"###\s*四、(?:資金與情緒|资金与情绪|資金動向|资金动向)",
+    "news_catalysts": r"###\s*五、(?:消息催化|後市展望|后市展望)",
 }
 
 
@@ -145,18 +145,18 @@ class MarketAnalyzer:
         if self.region == "us":
             return "US market"
         if self.region == "hk":
-            return "Hong Kong market" if review_language == "en" else "港股市场"
+            return "Hong Kong market" if review_language == "en" else "港股市場"
         if review_language == "en":
             return "A-share market"
-        return "A股市场"
+        return "A股市場"
 
     def _get_turnover_unit_label(self) -> str:
         """Return the turnover unit label for the current market/language."""
         if self.region == "us":
-            return "USD bn" if self._get_review_language() == "en" else "十亿美元"
+            return "USD bn" if self._get_review_language() == "en" else "十億美元"
         if self.region == "hk":
-            return "HKD bn" if self._get_review_language() == "en" else "十亿港元"
-        return "CNY 100m" if self._get_review_language() == "en" else "亿"
+            return "HKD bn" if self._get_review_language() == "en" else "十億港元"
+        return "CNY 100m" if self._get_review_language() == "en" else "億"
 
     def _format_turnover_value(self, amount_raw: float) -> str:
         """Format raw turnover according to market-specific units."""
@@ -181,7 +181,7 @@ class MarketAnalyzer:
             market_names = {"us": "US Market Recap", "hk": "HK Market Recap"}
             market_name = market_names.get(self.region, "A-share Market Recap")
             return f"## {date} {market_name}"
-        return f"## {date} 大盘复盘"
+        return f"## {date} 大盤復盤"
 
     def _get_index_hint(self) -> str:
         if self._get_review_language() == "en":
@@ -277,11 +277,11 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
             }
         else:
             mapping = {
-                "strong_up": "强势上涨",
-                "mild_up": "小幅上涨",
+                "strong_up": "強勢上漲",
+                "mild_up": "小幅上漲",
                 "mild_down": "小幅下跌",
-                "strong_down": "明显下跌",
-                "range": "震荡整理",
+                "strong_down": "明顯下跌",
+                "range": "震盪整理",
             }
         return mapping[mood_key]
 

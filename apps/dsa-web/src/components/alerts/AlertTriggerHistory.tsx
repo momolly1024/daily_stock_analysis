@@ -35,7 +35,7 @@ export const AlertTriggerHistory: React.FC<AlertTriggerHistoryProps> = ({ trigge
       {!isLoading && triggers.length === 0 ? (
         <EmptyState
           icon={<Activity className="h-6 w-6" />}
-          title="暂无触发历史"
+          title="暫無觸發歷史"
           description="后台评估会记录 triggered、skipped、degraded 和 failed 状态；正常未触发不会写入历史。"
         />
       ) : null}
@@ -49,7 +49,7 @@ export const AlertTriggerHistory: React.FC<AlertTriggerHistoryProps> = ({ trigge
                 <th className="px-3 py-2 font-medium">观察值</th>
                 <th className="px-3 py-2 font-medium">阈值</th>
                 <th className="px-3 py-2 font-medium">数据源</th>
-                <th className="px-3 py-2 font-medium">数据时间</th>
+                <th className="px-3 py-2 font-medium">數據時間</th>
                 <th className="px-3 py-2 font-medium">原因</th>
               </tr>
             </thead>
