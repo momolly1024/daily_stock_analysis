@@ -658,7 +658,7 @@ class DataFetcherManager:
         market: str,
     ) -> List[BaseFetcher]:
         """Skip built-in daily fetchers that are known not to support a market."""
-        if market not in {"cn", "hk", "us"}:
+        if market not in {"cn", "hk", "us", "tw"}:
             return fetchers
 
         kept: List[BaseFetcher] = []
