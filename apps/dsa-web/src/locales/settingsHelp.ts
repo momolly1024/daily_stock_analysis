@@ -40,11 +40,11 @@ const settingsHelpZhCN: SettingsHelpMap = {
       'Agent 可通过 AGENT_LITELLM_MODEL 单独指定模型；留空时继承主模型。',
     ],
     impact: [
-      '影响普通个股分析、大盘复盘、报告生成，以及未单独覆盖模型的 Agent 调用。',
+      '影響一般個股分析、大盤復盤、報告生成，以及未單獨覆蓋模型的 Agent 呼叫。',
     ],
     notes: [
-      '无 provider 前缀时，LiteLLM 可能无法判断应该使用哪组 API Key。',
-      'Ollama 本地模型应配合 OLLAMA_API_BASE 或 Ollama 渠道使用，不要误用 OPENAI_BASE_URL。',
+      '無 provider 前綴時，LiteLLM 可能無法判斷應使用哪組 API Key。',
+      'Ollama 本地模型應搭配 OLLAMA_API_BASE 或 Ollama 渠道使用，不要誤用 OPENAI_BASE_URL。',
     ],
   },
   'settings.ai_model.LLM_CHANNELS': {

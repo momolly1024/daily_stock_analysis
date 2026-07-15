@@ -2746,19 +2746,19 @@ class GeminiAnalyzer:
             ttm_count = dividend_metrics.get("ttm_event_count", "N/A")
             report_date = financial_report.get("report_date", "N/A")
             prompt += f"""
-### 财报与分红（价值投资口径）
-| 指标 | 数值 | 说明 |
+### 財報與股息（價值投資口徑）
+| 指標 | 數值 | 說明 |
 |------|------|------|
-| 最近报告期 | {report_date} | 来自结构化财报字段 |
-| 营业收入 | {financial_report.get('revenue', 'N/A')} | |
-| 归母净利润 | {financial_report.get('net_profit_parent', 'N/A')} | |
-| 经营现金流 | {financial_report.get('operating_cash_flow', 'N/A')} | |
+| 最近報告期 | {report_date} | 來自結構化財報欄位 |
+| 營業收入 | {financial_report.get('revenue', 'N/A')} | |
+| 歸母淨利潤 | {financial_report.get('net_profit_parent', 'N/A')} | |
+| 經營現金流 | {financial_report.get('operating_cash_flow', 'N/A')} | |
 | ROE | {financial_report.get('roe', 'N/A')} | |
-| 近12个月每股现金分红 | {ttm_cash} | 仅现金分红、税前口径 |
-| TTM 股息率 | {ttm_yield} | 公式：近12个月每股现金分红 / 当前价格 × 100% |
-| TTM 分红事件数 | {ttm_count} | |
+| 近12個月每股現金股息 | {ttm_cash} | 僅現金股息、稅前口徑 |
+| TTM 殖利率 | {ttm_yield} | 公式：近12個月每股現金股息 / 當前價格 × 100% |
+| TTM 配息次數 | {ttm_count} | |
 
-> 若上述字段为 N/A 或缺失，请明确写“数据缺失，无法判断”，禁止编造。
+> 若上述欄位為 N/A 或缺失，請明確寫「資料缺失，無法判斷」，嚴禁編造。
 """
 
         capital_flow_block = (
@@ -2872,7 +2872,7 @@ class GeminiAnalyzer:
                 )
                 prompt += f"""
 ### 技术与结构分析（供激活技能判断参考）
-| 指标 | 数值 | 说明 |
+| 指標 | 數值 | 說明 |
 |------|------|------|
 | 趋势状态 | {trend.get('trend_status', unknown_text)} | |
 | 均线排列 | {trend.get('ma_alignment', unknown_text)} | 结合激活技能判断结构强弱 |
@@ -2950,16 +2950,16 @@ class GeminiAnalyzer:
 """
         else:
             prompt += """
-未搜索到该股票近期的相关新闻。请主要依据技术面数据进行分析。
+未搜尋到該股票近期的相關新聞。請主要依據技術面資料進行分析。
 """
 
         # 注入缺失数据警告
         if context.get('data_missing'):
             prompt += """
-⚠️ **数据缺失警告**
-由于接口限制，当前无法获取完整的实时行情和技术指标数据。
-请 **忽略上述表格中的 N/A 数据**，重点依据 **【📰 舆情情报】** 中的新闻进行基本面和情绪面分析。
-在回答技术面问题（如均线、乖离率）时，请直接说明“数据缺失，无法判断”，**严禁编造数据**。
+⚠️ **資料缺失警告**
+由於介面限制，目前無法取得完整的即時行情與技術指標資料。
+請 **忽略上述表格中的 N/A 資料**，重點依據 **【📰 輿情情報】** 中的新聞進行基本面與情緒面分析。
+在回答技術面問題（如均線、乖離率）時，請直接說明「資料缺失，無法判斷」，**嚴禁編造資料**。
 """
 
         # 明确的输出要求
@@ -3031,11 +3031,11 @@ class GeminiAnalyzer:
         else:
             prompt += f"""
 
-### 输出语言要求（最高优先级）
-- 所有 JSON 键名必须保持不变，不要翻译键名。
-- `decision_type` 必须保持为 `buy`、`hold`、`sell`。
-- 所有面向用户的人类可读文本值必须使用中文。
-- 当数据缺失时，请使用中文直接说明“{no_data_text}，无法判断”。
+### 輸出語言要求（最高優先級）
+- 所有 JSON 鍵名必須保持不變，不要翻譯鍵名。
+- `decision_type` 必須保持為 `buy`、`hold`、`sell`。
+- 所有面向使用者的人類可讀文字值必須使用**繁體中文（台灣正體）**，嚴禁使用簡體中文。
+- 當資料缺失時，請使用繁體中文直接說明「{no_data_text}，無法判斷」。
 """
         
         return prompt
