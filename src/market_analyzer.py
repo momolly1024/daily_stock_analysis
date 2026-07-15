@@ -573,17 +573,17 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
         up_ratio = overview.up_count / participation if participation else 0.0
         limit_spread = overview.limit_up_count - overview.limit_down_count
         lines = [
-            f"> **大盘红绿灯**：{light['status']}（{light['label']}） | **{score}/100** {self._build_temperature_bar(score)}",
+            f"> **大盤紅綠燈**：{light['status']}（{light['label']}） | **{score}/100** {self._build_temperature_bar(score)}",
             f"> **核心原因**：{'；'.join(light['reasons'])}",
-            f"> **操作建议**：{light['guidance']}",
+            f"> **操作建議**：{light['guidance']}",
             "",
-            f"> **盘面温度**：{label} **{score}/100** {self._build_temperature_bar(score)}",
+            f"> **盤面溫度**：{label} **{score}/100** {self._build_temperature_bar(score)}",
             "",
-            "| 指标 | 数值 | 观察 |",
+            "| 指標 | 數值 | 觀察 |",
             "|------|------|------|",
-            f"| 上涨/下跌/平盘 | {overview.up_count} / {overview.down_count} / {overview.flat_count} | 上涨占比(不含平盘) {up_ratio:.1%} |",
-            f"| 涨停/跌停 | {overview.limit_up_count} / {overview.limit_down_count} | 涨跌停差 {limit_spread:+d} |",
-            f"| 两市成交额 | {overview.total_amount:.0f} 亿 | {self._describe_turnover(overview.total_amount)} |",
+            f"| 上漲/下跌/平盤 | {overview.up_count} / {overview.down_count} / {overview.flat_count} | 上漲佔比(不含平盤) {up_ratio:.1%} |",
+            f"| 漲停/跌停 | {overview.limit_up_count} / {overview.limit_down_count} | 漲跌停差 {limit_spread:+d} |",
+            f"| 兩市成交額 | {overview.total_amount:.0f} 億 | {self._describe_turnover(overview.total_amount)} |",
         ]
         return "\n".join(lines)
 
@@ -611,14 +611,14 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
             reasons = self._build_market_light_reasons_en(overview, score)
         else:
             label_map = {
-                "green": "可进攻",
-                "yellow": "需观察",
+                "green": "可進攻",
+                "yellow": "需觀察",
                 "red": "偏防守",
             }
             guidance_map = {
-                "green": "风险偏好尚可，关注主线延续与仓位纪律。",
-                "yellow": "信号分化，控制仓位并等待量价确认。",
-                "red": "风险偏高，优先控制回撤，避免追高弱反弹。",
+                "green": "風險偏好尚可，關注主線延續與倉位紀律。",
+                "yellow": "訊號分化，控制倉位並等待量價確認。",
+                "red": "風險偏高，優先控制回撤，避免追高弱反彈。",
             }
             reasons = self._build_market_light_reasons_zh(overview, score)
 
@@ -634,19 +634,19 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
     def _build_market_light_reasons_zh(self, overview: MarketOverview, score: int) -> List[str]:
         participation = overview.up_count + overview.down_count
         up_ratio = overview.up_count / participation if participation else None
-        reasons: List[str] = [f"盘面温度 {score}/100"]
+        reasons: List[str] = [f"盤面溫度 {score}/100"]
         if up_ratio is not None:
             if up_ratio >= 0.6:
-                reasons.append(f"上涨家数占比 {up_ratio:.0%}，赚钱效应扩散")
+                reasons.append(f"上漲家數佔比 {up_ratio:.0%}，賺錢效應擴散")
             elif up_ratio <= 0.4:
-                reasons.append(f"上涨家数占比 {up_ratio:.0%}，亏钱效应较强")
+                reasons.append(f"上漲家數佔比 {up_ratio:.0%}，虧錢效應較強")
             else:
-                reasons.append(f"上涨家数占比 {up_ratio:.0%}，市场分化")
+                reasons.append(f"上漲家數佔比 {up_ratio:.0%}，市場分化")
         if overview.indices:
             avg_change = sum(idx.change_pct for idx in overview.indices) / len(overview.indices)
-            reasons.append(f"主要指数平均涨跌幅 {avg_change:+.2f}%")
+            reasons.append(f"主要指數平均漲跌幅 {avg_change:+.2f}%")
         if overview.limit_up_count or overview.limit_down_count:
-            reasons.append(f"涨跌停差 {overview.limit_up_count - overview.limit_down_count:+d}")
+            reasons.append(f"漲跌停差 {overview.limit_up_count - overview.limit_down_count:+d}")
         return reasons[:4]
 
     def _build_market_light_reasons_en(self, overview: MarketOverview, score: int) -> List[str]:
@@ -678,7 +678,7 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
             ]
         else:
             lines = [
-                "| 指数 | 最新 | 涨跌幅 | 开盘 | 最高 | 最低 | 振幅 | 成交额(亿) |",
+                "| 指數 | 最新 | 漲跌幅 | 開盤 | 最高 | 最低 | 振幅 | 成交額(億) |",
                 "|------|------|--------|------|------|------|------|-----------|",
             ]
         for idx in overview.indices:
@@ -706,8 +706,8 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
                 ])
             else:
                 lines.extend([
-                    "#### 领涨板块 Top 5",
-                    "| 排名 | 板块 | 涨跌幅 |",
+                    "#### 領漲板塊 Top 5",
+                    "| 排名 | 板塊 | 漲跌幅 |",
                     "|------|------|--------|",
                 ])
             for rank, sector in enumerate(overview.top_sectors[:5], 1):
@@ -725,8 +725,8 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
                 ])
             else:
                 lines.extend([
-                    "#### 领跌板块 Top 5",
-                    "| 排名 | 板块 | 涨跌幅 |",
+                    "#### 領跌板塊 Top 5",
+                    "| 排名 | 板塊 | 漲跌幅 |",
                     "|------|------|--------|",
                 ])
             for rank, sector in enumerate(overview.bottom_sectors[:5], 1):
@@ -747,8 +747,8 @@ Focus on index trend, liquidity, and sector rotation to shape the next-session t
             ]
         else:
             lines = [
-                "#### 近三日催化线索",
-                "| 序号 | 事件/标题 | 摘要/线索片段 | 来源 |",
+                "#### 近三日催化線索",
+                "| 序號 | 事件/標題 | 摘要/線索片段 | 來源 |",
                 "|------|-----------|----------------|------|",
             ]
 

@@ -74,7 +74,7 @@ def run_market_review(
     Returns:
         复盘报告文本
     """
-    logger.info("开始执行大盘复盘分析...")
+    logger.info("開始執行大盤復盤分析...")
     config = get_config()
     review_text = _get_market_review_text(getattr(config, "report_language", "zh"))
     region = (
@@ -103,7 +103,7 @@ def run_market_review(
             for mkt, title_key, label in _ALL_MARKETS:
                 if mkt not in run_markets:
                     continue
-                logger.info("生成 %s 大盘复盘报告...", label)
+                logger.info("生成 %s 大盤復盤報告...", label)
                 mkt_analyzer = MarketAnalyzer(
                     search_service=search_service, analyzer=analyzer, region=mkt
                 )
@@ -130,7 +130,7 @@ def run_market_review(
                 f"{review_text['root_title']}\n\n{review_report}",
                 report_filename
             )
-            logger.info(f"大盘复盘报告已保存: {filepath}")
+            logger.info(f"大盤復盤報告已保存: {filepath}")
 
             _persist_market_review_history(
                 review_report=review_report,
@@ -142,23 +142,23 @@ def run_market_review(
             
             # 推送通知（合并模式下跳过，由 main 层统一发送）
             if merge_notification and send_notification:
-                logger.info("合并推送模式：跳过大盘复盘单独推送，将在个股+大盘复盘后统一发送")
+                logger.info("合併推送模式：跳過大盤復盤單獨推送，將在個股+大盤復盤後統一發送")
             elif send_notification and notifier.is_available():
                 # 添加标题
                 report_content = f"{review_text['push_title']}\n\n{review_report}"
 
                 success = notifier.send(report_content, email_send_to_all=True, route_type="report")
                 if success:
-                    logger.info("大盘复盘推送成功")
+                    logger.info("大盤復盤推送成功")
                 else:
-                    logger.warning("大盘复盘推送失败")
+                    logger.warning("大盤復盤推送失敗")
             elif not send_notification:
-                logger.info("已跳过推送通知 (--no-notify)")
+                logger.info("已跳過推送通知 (--no-notify)")
             
             return review_report
         
     except Exception as e:
-        logger.error(f"大盘复盘分析失败: {e}")
+        logger.error(f"大盤復盤分析失敗: {e}")
     
     return None
 
@@ -182,9 +182,9 @@ def _persist_market_review_history(
             operation_advice = "View review"
             trend_prediction = "Market review"
         else:
-            stock_name = "大盘复盘"
-            operation_advice = "查看复盘"
-            trend_prediction = "大盘复盘"
+            stock_name = "大盤復盤"
+            operation_advice = "查看復盤"
+            trend_prediction = "大盤復盤"
 
         result = AnalysisResult(
             code=MARKET_REVIEW_HISTORY_CODE,
@@ -215,12 +215,12 @@ def _persist_market_review_history(
             save_snapshot=True,
         )
         if saved:
-            logger.info("大盘复盘历史记录已保存: query_id=%s", history_query_id)
+            logger.info("大盤復盤歷史記錄已保存: query_id=%s", history_query_id)
         else:
-            logger.warning("大盘复盘历史记录保存失败: query_id=%s", history_query_id)
+            logger.warning("大盤復盤歷史記錄保存失敗: query_id=%s", history_query_id)
         return saved
     except Exception as exc:
-        logger.warning("大盘复盘历史记录保存异常，报告文件与推送流程继续: %s", exc, exc_info=True)
+        logger.warning("大盤復盤歷史記錄保存異常，報告文件與推送流程繼續: %s", exc, exc_info=True)
         return 0
 
 
@@ -229,4 +229,4 @@ def _summarize_market_review(review_report: str, report_language: str) -> str:
         text = line.strip().lstrip("#").strip()
         if text and not text.startswith("---") and not text.startswith(">"):
             return text[:200]
-    return "Market review report generated." if report_language == "en" else "大盘复盘报告已生成。"
+    return "Market review report generated." if report_language == "en" else "大盤復盤報告已生成。"
