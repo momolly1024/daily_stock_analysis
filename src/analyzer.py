@@ -1006,10 +1006,10 @@ def _capital_flow_bias_with_status(
 def _capital_flow_status_for_stability(reason: str, language: str) -> str:
     normalized = str(reason or "").strip().lower()
     if "not_supported" in normalized or "unsupported" in normalized or "not available" in normalized:
-        return "市场资金流服务暂不支持" if language == "zh" else "Capital flow source unsupported"
+        return "市場資金流服務暫不支援" if language == "zh" else "Capital flow source unsupported"
     if "empty_stock_flow" in normalized or "missing" in normalized:
-        return "资金流数据缺失" if language == "zh" else "capital flow data unavailable"
-    return "资金流数据不可用" if language == "zh" else "capital flow unavailable"
+        return "資金流資料缺失" if language == "zh" else "capital flow data unavailable"
+    return "資金流資料不可用" if language == "zh" else "capital flow unavailable"
 
 
 def _set_decision_stability_unavailable(
@@ -1025,7 +1025,7 @@ def _set_decision_stability_unavailable(
     result.dashboard = dashboard
     dashboard["decision_stability"] = {
         "applied": False,
-        "reason": "资金流不可用，未使用资金流校准" if language == "zh" else "Capital flow unavailable; stability calibration not applied",
+        "reason": "資金流不可用，未使用資金流校準" if language == "zh" else "Capital flow unavailable; stability calibration not applied",
         "capital_flow_status": _capital_flow_status_for_stability(flow_status, language),
         "current_price": current_price,
         "support": support,
@@ -1065,7 +1065,7 @@ def _apply_hold_watch_dashboard(
     if not isinstance(core, dict):
         core = {}
         dashboard["core_conclusion"] = core
-    core["signal_type"] = "🟡持有观望" if language == "zh" else "🟡 Hold / Watch"
+    core["signal_type"] = "🟡持有觀望" if language == "zh" else "🟡 Hold / Watch"
     core["one_sentence"] = f"{advice}：{reason}" if language == "zh" else f"{advice}: {reason}"
 
     position_advice = core.get("position_advice")
@@ -1104,10 +1104,10 @@ def _downgrade_buy_without_capital_flow(
 ) -> None:
     status_text = _capital_flow_status_for_stability(flow_status, language)
     if language == "zh":
-        advice = "持有观察"
-        reason = f"{status_text}，买入结论缺少资金面确认，先按观察处理。"
-        no_position = "空仓先不追买，等待资金流恢复、支撑确认或有效突破后再行动。"
-        has_position = "持仓以关键支撑为风控线，资金流恢复前控制仓位。"
+        advice = "持有觀察"
+        reason = f"{status_text}，買入結論缺少資金面確認，先按觀察處理。"
+        no_position = "空倉先不追買，等待資金流恢復、支撐確認或有效突破後再行動。"
+        has_position = "持倉以關鍵支撐為風控線，資金流恢復前控制倉位。"
         confidence = "低"
     else:
         advice = "Hold and watch"
@@ -1174,24 +1174,24 @@ def _set_structural_hold_wording(
 ) -> None:
     advice = {
         "zh": {
-            "range": "震荡观望",
-            "shakeout": "洗盘观察",
-            "hold": "持有观察",
+            "range": "震盪觀望",
+            "shakeout": "洗盤觀察",
+            "hold": "持有觀察",
         },
         "en": {
             "range": "Range-bound watch",
             "shakeout": "Shakeout watch",
             "hold": "Hold and watch",
         },
-    }[language].get(advice_key, "持有观察" if language == "zh" else "Hold and watch")
+    }[language].get(advice_key, "持有觀察" if language == "zh" else "Hold and watch")
     reason_templates = {
         "zh": {
-            "buy_near_resistance": "价格接近压力位且主力资金未确认流入，不宜仅因短线反弹追买。",
-            "buy_with_outflow": "主力资金流出与买入结论冲突，买点需等待支撑确认或资金回流。",
-            "sell_near_support": "价格贴近支撑且未见资金持续流出，不宜仅因单日下跌直接卖出。",
-            "sell_with_inflow": "主力资金流入与卖出结论冲突，先按持有观察处理并跟踪支撑失效。",
-            "hold_shakeout": "价格回落至支撑附近但资金未确认流出，更适合按洗盘观察处理。",
-            "hold_mid_range": "价格处于支撑与压力之间且资金流不明确，维持震荡观望更可操作。",
+            "buy_near_resistance": "價格接近壓力位且主力資金未確認流入，不宜僅因短線反彈追買。",
+            "buy_with_outflow": "主力資金流出與買入結論衝突，買點需等待支撐確認或資金回流。",
+            "sell_near_support": "價格貼近支撐且未見資金持續流出，不宜僅因單日下跌直接賣出。",
+            "sell_with_inflow": "主力資金流入與賣出結論衝突，先按持有觀察處理並追蹤支撐失效。",
+            "hold_shakeout": "價格回落至支撐附近但資金未確認流出，更適合按洗盤觀察處理。",
+            "hold_mid_range": "價格處於支撐與壓力之間且資金流不明確，維持震盪觀望更可操作。",
         },
         "en": {
             "buy_near_resistance": "Price is near resistance without confirmed main-force inflow, so chasing the rebound is not actionable.",
@@ -1204,14 +1204,14 @@ def _set_structural_hold_wording(
     }
     reason = reason_templates[language].get(reason_key, "")
     result.operation_advice = advice
-    if language == "zh" and "震荡" not in str(result.trend_prediction) and advice_key == "range":
-        result.trend_prediction = "震荡"
+    if language == "zh" and "震盪" not in str(result.trend_prediction) and advice_key == "range":
+        result.trend_prediction = "震盪"
     elif language == "en" and advice_key == "range":
         result.trend_prediction = "Sideways"
 
     if language == "zh":
-        no_position = "空仓先不追涨杀跌，等待支撑确认、放量突破或资金回流后再行动。"
-        has_position = "持仓以关键支撑为风控线，未跌破前以观察和分批控仓为主。"
+        no_position = "空倉先不追漲殺跌，等待支撐確認、放量突破或資金回流後再行動。"
+        has_position = "持倉以關鍵支撐為風控線，未跌破前以觀察和分批控倉為主。"
     else:
         no_position = "Do not chase or panic; wait for support confirmation, breakout, or renewed inflow."
         has_position = "Use key support as the risk line and manage position size unless support fails."

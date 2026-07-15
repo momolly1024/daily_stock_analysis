@@ -155,16 +155,16 @@ def test_downgrades_buy_when_capital_flow_is_unavailable() -> None:
     )
 
     assert buy_result.decision_type == "hold"
-    assert buy_result.operation_advice == "持有观察"
+    assert buy_result.operation_advice == "持有觀察"
     assert buy_result.confidence_level == "低"
     assert buy_result.sentiment_score <= 59
     assert buy_result.dashboard["decision_stability"]["applied"] is True
-    assert "买入结论缺少资金面确认" in buy_result.dashboard["decision_stability"]["reason"]
-    assert buy_result.dashboard["core_conclusion"]["signal_type"] == "🟡持有观望"
+    assert "買入結論缺少資金面確認" in buy_result.dashboard["decision_stability"]["reason"]
+    assert buy_result.dashboard["core_conclusion"]["signal_type"] == "🟡持有觀望"
     assert sell_result.decision_type == "sell"
     assert sell_result.operation_advice == "卖出"
     assert sell_result.dashboard["decision_stability"]["applied"] is False
-    assert "未使用资金流校准" in sell_result.dashboard["decision_stability"]["reason"]
+    assert "未使用資金流校準" in sell_result.dashboard["decision_stability"]["reason"]
 
 
 def test_downgrades_buy_when_capital_flow_values_are_na() -> None:
@@ -213,10 +213,10 @@ def test_downgrades_buy_advice_when_decision_type_is_hold_and_capital_flow_unava
     )
 
     assert result.decision_type == "hold"
-    assert result.operation_advice == "持有观察"
+    assert result.operation_advice == "持有觀察"
     assert result.sentiment_score <= 59
     assert result.dashboard["decision_stability"]["applied"] is True
-    assert "买入结论缺少资金面确认" in result.dashboard["decision_stability"]["reason"]
+    assert "買入結論缺少資金面確認" in result.dashboard["decision_stability"]["reason"]
 
 
 def test_downgrades_buy_when_capital_flow_status_is_unavailable_case_insensitive() -> None:
