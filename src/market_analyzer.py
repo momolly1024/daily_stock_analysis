@@ -131,7 +131,7 @@ class MarketAnalyzer:
         configured = normalize_report_language(
             getattr(getattr(self, "config", None), "report_language", "zh")
         )
-        if self.region == "us":
+        if self.region == "us" and configured == "en":
             return "en"
         return configured
 
