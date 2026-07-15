@@ -141,6 +141,12 @@ class YfinanceFetcher(BaseFetcher):
             base = code.split('.')[0] if '.' in code else code
             return f"{base}.BJ"
 
+        # 台股：4位純數字 -> .TW（Yahoo Finance 格式：2330.TW、0050.TW）
+        base_code = code.split('.')[0] if '.' in code else code
+        if base_code.isdigit() and len(base_code) == 4:
+            logger.debug(f"識別為台股代碼: {stock_code} -> {base_code}.TW")
+            return f"{base_code}.TW"
+
         # A股：根据代码前缀判断市场
         if code.startswith(('600', '601', '603', '688')):
             return f"{code}.SS"

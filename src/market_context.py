@@ -39,6 +39,12 @@ def detect_market(stock_code: Optional[str]) -> str:
     if re.match(r'^[A-Z]{1,5}(\.[A-Z]{1,2})?$', code):
         return "us"
 
+    # Taiwan stocks: explicit .TW/.TWO suffix, or 4-digit pure numbers
+    if code.endswith('.TW') or code.endswith('.TWO'):
+        return "tw"
+    if code.isdigit() and len(code) == 4:
+        return "tw"
+
     # Default: A-shares (6-digit numbers like 600519, 000001)
     return "cn"
 
@@ -57,6 +63,10 @@ _MARKET_ROLES = {
     "us": {
         "zh": "美股",
         "en": "US stock",
+    },
+    "tw": {
+        "zh": "台股",
+        "en": "Taiwan stock",
     },
 }
 
@@ -89,6 +99,16 @@ _MARKET_GUIDELINES = {
         "en": (
             "- This analysis covers a **US stock** (listed on NYSE/NASDAQ).\n"
             "- US stocks have no daily price limits (but have circuit breakers), allow T+0 and pre/after-market trading. Consider USD FX, Fed policy, and SEC regulations."
+        ),
+    },
+    "tw": {
+        "zh": (
+            "- 本次分析對象為 **台股**（台灣證券交易所或櫃買中心上市股票）。\n"
+            "- 台股漲跌停限制為 ±10%，採 T+2 交割，請關注台幣匯率、外資動向、法人買賣超及台積電對加權指數的影響。"
+        ),
+        "en": (
+            "- This analysis covers a **Taiwan stock** (listed on TWSE or TPEx).\n"
+            "- Taiwan stocks have ±10% daily price limits, T+2 settlement. Consider TWD FX, foreign institutional flows, and TSMC's influence on the TAIEX."
         ),
     },
 }

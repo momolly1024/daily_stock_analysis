@@ -105,12 +105,14 @@ def normalize_stock_code(stock_code: str) -> str:
         if candidate.isdigit() and len(candidate) == 6:
             return candidate
 
-    # Strip .SH/.SZ/.BJ suffix (e.g. 600519.SH -> 600519, 920748.BJ -> 920748)
+    # Strip .SH/.SZ/.BJ/.TW/.TWO suffix
     if '.' in code:
         base, suffix = code.rsplit('.', 1)
         if suffix.upper() == 'HK' and base.isdigit() and 1 <= len(base) <= 5:
             return f"HK{base.zfill(5)}"
         if suffix.upper() in ('SH', 'SZ', 'SS', 'BJ') and base.isdigit():
+            return base
+        if suffix.upper() in ('TW', 'TWO') and base.isdigit():
             return base
 
     return code
@@ -145,6 +147,14 @@ def _is_hk_market(code: str) -> bool:
     return False
 
 
+def _is_tw_market(code: str) -> bool:
+    """判定是否為台股代碼（4位純數字，或含 .TW/.TWO 後綴）。"""
+    normalized = (code or "").strip().upper()
+    if normalized.endswith(".TW") or normalized.endswith(".TWO"):
+        return True
+    return normalized.isdigit() and len(normalized) == 4
+
+
 def _is_etf_code(code: str) -> bool:
     """判定 A 股 ETF 基金代码（保守规则）。"""
     normalized = normalize_stock_code(code)
@@ -156,11 +166,13 @@ def _is_etf_code(code: str) -> bool:
 
 
 def _market_tag(code: str) -> str:
-    """返回市场标签: cn/us/hk."""
+    """返回市场标签: cn/us/hk/tw."""
     if _is_us_market(code):
         return "us"
     if _is_hk_market(code):
         return "hk"
+    if _is_tw_market(code):
+        return "tw"
     return "cn"
 
 
@@ -521,7 +533,7 @@ class DataFetcherManager:
         "TushareFetcher": {"cn", "hk"},
         "PytdxFetcher": {"cn"},
         "BaostockFetcher": {"cn"},
-        "YfinanceFetcher": {"cn", "hk", "us"},
+        "YfinanceFetcher": {"cn", "hk", "us", "tw"},
         "LongbridgeFetcher": {"hk", "us"},
         "FinnhubFetcher": {"us"},
         "AlphaVantageFetcher": {"us"},
@@ -1121,13 +1133,16 @@ class DataFetcherManager:
         is_us_index = is_us_index_code(stock_code)
         is_us = is_us_index or is_us_stock_code(stock_code)
         is_hk = (not is_us) and _is_hk_market(stock_code)
+        is_tw = (not is_us) and (not is_hk) and _is_tw_market(stock_code)
         if is_hk:
             fetchers = self._filter_daily_fetchers_for_market(fetchers, "hk")
+        elif is_tw:
+            fetchers = self._filter_daily_fetchers_for_market(fetchers, "tw")
         fetchers = self._filter_fetchers_by_capability(fetchers, capability="daily_data")
         total_fetchers = len(fetchers)
 
         if total_fetchers == 0:
-            market_label = "美股指数" if is_us_index else "美股" if is_us else "港股" if is_hk else "A股"
+            market_label = "美股指数" if is_us_index else "美股" if is_us else "港股" if is_hk else "台股" if is_tw else "A股"
             error_summary = f"{market_label} {stock_code} 获取失败:\n暂无可用数据源"
             logger.error(f"[数据源终止] {stock_code} 获取失败: {error_summary}")
             raise DataFetchError(error_summary)
